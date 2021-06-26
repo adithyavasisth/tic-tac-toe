@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { gameResults } from '../models';
 
 @Component({
   selector: 'app-game-over-dialog',
@@ -15,7 +16,7 @@ export class GameOverDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.data.result === 'tied') {
+    if (this.data.result === gameResults.TIED) {
       this.message = 'The game has tied! Play again.';
     } else {
       this.message = `Player ${this.data.result} has won the game!`;

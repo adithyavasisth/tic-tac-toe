@@ -4,7 +4,8 @@ import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { IsHandsetService } from 'src/app/is-handset/is-handset.service';
 import { GameOverDialogComponent } from '../game-over-dialog/game-over-dialog.component';
-import { PlaySessionService, Tile } from './play-session.service';
+import { gameResults, playerChance, Tile } from '../models';
+import { PlaySessionService } from './play-session.service';
 
 @Component({
   selector: 'app-play-game',
@@ -63,9 +64,9 @@ export class PlayGameComponent implements OnInit {
     }
   }
 
-  private setIcon(player: 1 | 2, tile: Tile) {
+  private setIcon(player: playerChance, tile: Tile) {
     const classArray = ['mdi'];
-    if (player === 1) {
+    if (player === playerChance.ONE) {
       classArray.push('mdi-close');
     } else {
       classArray.push('mdi-checkbox-blank-circle-outline');
@@ -73,7 +74,7 @@ export class PlayGameComponent implements OnInit {
     tile.tileClass = classArray;
   }
 
-  private openDialog(player: 1 | 2 | 'tied') {
+  private openDialog(player: gameResults) {
     const dialogRef = this.dialog.open(GameOverDialogComponent, {
       data: { result: player },
       disableClose: true,
