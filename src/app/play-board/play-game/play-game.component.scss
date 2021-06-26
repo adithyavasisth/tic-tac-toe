@@ -1,0 +1,54 @@
+.button-row {
+  height: 5%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0px 40px;
+  margin-bottom: 1%;
+  &.handset {
+    padding: 0px;
+    .mat-button-base {
+      margin: 0px;
+      .mat-icon {
+        font-size: 32px;
+      }
+    }
+  }
+
+  .deets {
+    position: absolute;
+    left: 25px;
+    .mat-h1 {
+      margin: 0px;
+    }
+  }
+
+  .mat-button-base {
+    padding: 0px 40px;
+    margin: 0px 20px;
+  }
+}
+
+.play-board {
+  height: 94%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+
+  .play-square {
+    color: black;
+    width: 29%;
+    height: 29%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .mdi {
+      font-size: 100px;
+      &.mdi-checkbox-blank-circle-outline {
+        color: white;
+      }
+    }
+  }
+}

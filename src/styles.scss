@@ -1,1 +1,379 @@
 /* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mdi {
+  font-family: "Material Design Icons";
+  font-size: 24px;
+}
+
+.transparent-backdrop {
+  opacity: 0.5;
+  background: rgba(255, 255, 255, 0.5);
+}
+/*
+==========================================================
+MARGINS & PADDING v2
+==========================================================
+*/
+
+/* Padding 0px */
+
+.pad-all-0,
+.pad-none {
+  padding: 0 !important;
+}
+
+.pad-vert-0,
+.pad-top-0 {
+  padding-top: 0 !important;
+}
+
+.pad-horz-0,
+.pad-right-0 {
+  padding-right: 0 !important;
+}
+
+.pad-vert-0,
+.pad-bottom-0 {
+  padding-bottom: 0 !important;
+}
+
+.pad-horz-0,
+.pad-left-0 {
+  padding-left: 0 !important;
+}
+
+/* Padding 5px */
+
+.pad-all-5 {
+  padding: 5px !important;
+}
+
+.pad-vert-5,
+.pad-top-5 {
+  padding-top: 5px !important;
+}
+
+.pad-horz-5,
+.pad-right-5 {
+  padding-right: 5px !important;
+}
+
+.pad-vert-5,
+.pad-bottom-5 {
+  padding-bottom: 5px !important;
+}
+
+.pad-horz-5,
+.pad-left-5 {
+  padding-left: 5px !important;
+}
+
+/* Padding 10px */
+
+.pad-all-10 {
+  padding: 10px !important;
+}
+
+.pad-vert-10,
+.pad-top-10 {
+  padding-top: 10px !important;
+}
+
+.pad-horz-10,
+.pad-right-10 {
+  padding-right: 10px !important;
+}
+
+.pad-vert-10,
+.pad-bottom-10 {
+  padding-bottom: 10px !important;
+}
+
+.pad-horz-10,
+.pad-left-10 {
+  padding-left: 10px !important;
+}
+
+/* Padding 15px */
+
+.pad-all-15 {
+  padding: 15px !important;
+}
+
+.pad-vert-15,
+.pad-top-15 {
+  padding-top: 15px !important;
+}
+
+.pad-horz-15,
+.pad-right-15 {
+  padding-right: 15px !important;
+}
+
+.pad-vert-15,
+.pad-bottom-15 {
+  padding-bottom: 15px !important;
+}
+
+.pad-horz-15,
+.pad-left-15 {
+  padding-left: 15px !important;
+}
+
+/* Padding 20px */
+
+.pad-all-20 {
+  padding: 20px !important;
+}
+
+.pad-vert-20,
+.pad-top-20 {
+  padding-top: 20px !important;
+}
+
+.pad-horz-20,
+.pad-right-20 {
+  padding-right: 20px !important;
+}
+
+.pad-vert-20,
+.pad-bottom-20 {
+  padding-bottom: 20px !important;
+}
+
+.pad-horz-20,
+.pad-left-20 {
+  padding-left: 20px !important;
+}
+
+/* Utility - Margin Classes */
+
+/* Margin 0px */
+
+.margin-all-0,
+.margin-none {
+  margin: 0 !important;
+}
+
+.margin-vert-0,
+.margin-top-0 {
+  margin-top: 0 !important;
+}
+
+.margin-horz-0,
+.margin-right-0 {
+  margin-right: 0 !important;
+}
+
+.margin-vert-0,
+.margin-bottom-0 {
+  margin-bottom: 0 !important;
+}
+
+.margin-horz-0,
+.margin-left-0 {
+  margin-left: 0 !important;
+}
+
+/* Margin 5px */
+
+.margin-all-5 {
+  margin: 5px !important;
+}
+
+.margin-vert-5,
+.margin-top-5 {
+  margin-top: 5px !important;
+}
+
+.margin-horz-5,
+.margin-right-5 {
+  margin-right: 5px !important;
+}
+
+.margin-vert-5,
+.margin-bottom-5 {
+  margin-bottom: 5px !important;
+}
+
+.margin-horz-5,
+.margin-left-5 {
+  margin-left: 5px !important;
+}
+
+/* Margin 10px */
+
+.margin-all-10 {
+  margin: 10px !important;
+}
+
+.margin-vert-10,
+.margin-top-10 {
+  margin-top: 10px !important;
+}
+
+.margin-horz-10,
+.margin-right-10 {
+  margin-right: 10px !important;
+}
+
+.margin-vert-10,
+.margin-bottom-10 {
+  margin-bottom: 10px !important;
+}
+
+.margin-horz-10,
+.margin-left-10 {
+  margin-left: 10px !important;
+}
+
+/* Margin 15px */
+
+.margin-all-15 {
+  margin: 15px !important;
+}
+
+.margin-vert-15,
+.margin-top-15 {
+  margin-top: 15px !important;
+}
+
+.margin-horz-15,
+.margin-right-15 {
+  margin-right: 15px !important;
+}
+
+.margin-vert-15,
+.margin-bottom-15 {
+  margin-bottom: 15px !important;
+}
+
+.margin-horz-15,
+.margin-left-15 {
+  margin-left: 15px !important;
+}
+
+/* Margin 20px */
+
+.margin-all-20 {
+  margin: 20px !important;
+}
+
+.margin-vert-20,
+.margin-top-20 {
+  margin-top: 20px !important;
+}
+
+.margin-horz-20,
+.margin-right-20 {
+  margin-right: 20px !important;
+}
+
+.margin-vert-20,
+.margin-bottom-20 {
+  margin-bottom: 20px !important;
+}
+
+.margin-horz-20,
+.margin-left-20 {
+  margin-left: 20px !important;
+}
+
+/* Negative Margin Classes */
+
+/* Negative Margin -5 */
+
+.margin-all-neg-5 {
+  margin: -5px !important;
+}
+
+.margin-top-neg-5 {
+  margin-top: -5px !important;
+}
+
+.margin-right-neg-5 {
+  margin-right: -5px !important;
+}
+
+.margin-bottom-neg-5 {
+  margin-bottom: -5px !important;
+}
+
+.margin-left-neg-5 {
+  margin-left: -5px !important;
+}
+
+/* Negative Margin -10 */
+
+.margin-all-neg-10 {
+  margin: -10px !important;
+}
+
+.margin-top-neg-10 {
+  margin-top: -10px !important;
+}
+
+.margin-right-neg-10 {
+  margin-right: -10px !important;
+}
+
+.margin-bottom-neg-10 {
+  margin-bottom: -10px !important;
+}
+
+.margin-left-neg-10 {
+  margin-left: -10px !important;
+}
+
+/* Negative Margin -15 */
+
+.margin-all-neg-15 {
+  margin: -15px !important;
+}
+
+.margin-top-neg-15 {
+  margin-top: -15px !important;
+}
+
+.margin-right-neg-15 {
+  margin-right: -15px !important;
+}
+
+.margin-bottom-neg-15 {
+  margin-bottom: -15px !important;
+}
+
+.margin-left-neg-15 {
+  margin-left: -15px !important;
+}
+
+/* Negative Margin -20 */
+
+.margin-all-neg-20 {
+  margin: -20px !important;
+}
+
+.margin-top-neg-20 {
+  margin-top: -20px !important;
+}
+
+.margin-right-neg-20 {
+  margin-right: -20px !important;
+}
+
+.margin-bottom-neg-20 {
+  margin-bottom: -20px !important;
+}
+
+.margin-left-neg-20 {
+  margin-left: -20px !important;
+}

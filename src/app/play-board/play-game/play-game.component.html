@@ -1,0 +1,60 @@
+<div class="button-row" [ngClass]="{ handset: (isHandset$ | async) }">
+  <div class="deets">
+    <span class="mat-h1 pad-right-10">
+      It is Player {{ playSessionSvc.chance }}'s chance
+    </span>
+  </div>
+  <!-- for desktops -->
+  <button
+    mat-raised-button
+    color="accent"
+    *ngIf="!playSessionSvc.gameInProgress && !(isHandset$ | async)"
+    (click)="newGame()"
+  >
+    New Game
+  </button>
+  <button
+    mat-raised-button
+    color="warn"
+    *ngIf="playSessionSvc.gameInProgress && !(isHandset$ | async)"
+    (click)="resetGame()"
+  >
+    Reset Game
+  </button>
+  <!-- for mobile handsets -->
+  <button
+    mat-icon-button
+    color="accent"
+    *ngIf="!playSessionSvc.gameInProgress && (isHandset$ | async)"
+    (click)="newGame()"
+    title="Play Game"
+  >
+    <mat-icon>play_arrow</mat-icon>
+  </button>
+  <button
+    mat-icon-button
+    color="warn"
+    *ngIf="playSessionSvc.gameInProgress && (isHandset$ | async)"
+    (click)="resetGame()"
+    title="Reset Game"
+  >
+    <mat-icon>restore</mat-icon>
+  </button>
+</div>
+<mat-divider></mat-divider>
+<div class="play-board">
+  <div
+    *ngFor="let tile of tiles"
+    [style.background]="tile.color"
+    (click)="clickCell(tile)"
+    class="play-square"
+    [ngStyle]="{
+      cursor:
+        tile.tileClass.length > 0 || !playSessionSvc.gameInProgress
+          ? 'no-drop'
+          : 'pointer'
+    }"
+  >
+    <span [ngClass]="tile.tileClass"></span>
+  </div>
+</div>
