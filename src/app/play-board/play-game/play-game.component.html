@@ -6,7 +6,15 @@
         playSessionSvc.chance === 1
           ? playSessionSvc.player1Name
           : playSessionSvc.player2Name
-      }}'s chance
+      }}'s
+      (<i
+        class="mdi"
+        [ngClass]="
+          playSessionSvc.chance === 1
+            ? 'mdi-close'
+            : 'mdi-checkbox-blank-circle-outline'
+        "
+      ></i>) chance
     </span>
   </div>
   <!-- for desktops -->

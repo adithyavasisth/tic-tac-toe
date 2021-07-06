@@ -7,6 +7,9 @@ import { map, shareReplay } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class IsHandsetService {
+  /**
+   * @description Returns if the screen is a mobile device or not
+   */
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
     .pipe(
