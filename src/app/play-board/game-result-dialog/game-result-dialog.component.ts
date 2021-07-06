@@ -2,16 +2,19 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { GameResults } from '../models';
 
+/**
+ * @description The Dialog Component which displays the Game Result
+ */
 @Component({
-  selector: 'app-game-over-dialog',
-  templateUrl: './game-over-dialog.component.html',
-  styleUrls: ['./game-over-dialog.component.scss'],
+  selector: 'app-game-result-dialog',
+  templateUrl: './game-result-dialog.component.html',
+  styleUrls: ['./game-result-dialog.component.scss'],
 })
-export class GameOverDialogComponent implements OnInit {
+export class GameResultDialogComponent implements OnInit {
   message: string = '';
 
   constructor(
-    public dialogRef: MatDialogRef<GameOverDialogComponent>,
+    public dialogRef: MatDialogRef<GameResultDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 

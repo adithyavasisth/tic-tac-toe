@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { PlaySessionService } from './../play-board/play-game/play-session.service';
 
+/**
+ * @description The Home Component which has the player names in the beginning.
+ */
 @Component({
   selector: 'app-homepage',
   templateUrl: './home-page.component.html',
@@ -20,6 +23,9 @@ export class HomePageComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  /**
+   * @description Called on button click to set player names
+   */
   playGame() {
     this.playSessionSvc.player1Name =
       this.profileForm.get('player1Name')?.value;
