@@ -1,7 +1,12 @@
 <div class="button-row" [ngClass]="{ handset: (isHandset$ | async) }">
   <div class="deets">
     <span class="mat-h1 pad-right-10">
-      It is Player {{ playSessionSvc.chance }}'s chance
+      It is
+      {{
+        playSessionSvc.chance === 1
+          ? playSessionSvc.player1Name
+          : playSessionSvc.player2Name
+      }}'s chance
     </span>
   </div>
   <!-- for desktops -->

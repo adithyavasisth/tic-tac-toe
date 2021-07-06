@@ -1,4 +1,5 @@
 export interface Player {
+  name?: string;
   tiles: number[];
 }
 
@@ -8,18 +9,18 @@ export interface Tile {
   tileClass: string[];
 }
 
-export enum playerChance {
+export enum PlayerChance {
   ONE = 1,
   TWO = 2,
 }
 
-export enum gameResults {
+export enum GameResults {
   ONE = 1,
   TWO = 2,
   TIED = 'tied',
 }
 
-export const winPatterns = [
+export const WinPatterns = [
   [0, 1, 2],
   [3, 4, 5],
   [6, 7, 8],
@@ -27,5 +28,5 @@ export const winPatterns = [
   [1, 4, 7],
   [2, 5, 8],
   [0, 4, 8],
-  [3, 4, 6],
+  [2, 4, 6],
 ];

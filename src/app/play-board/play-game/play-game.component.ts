@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { Observable, Subscriber, Subscription } from 'rxjs';
 import { IsHandsetService } from 'src/app/is-handset/is-handset.service';
 import { GameOverDialogComponent } from '../game-over-dialog/game-over-dialog.component';
-import { gameResults, playerChance, Tile } from '../models';
+import { GameResults, PlayerChance, Tile } from '../models';
 import { PlaySessionService } from './play-session.service';
 
 @Component({
@@ -12,8 +11,9 @@ import { PlaySessionService } from './play-session.service';
   templateUrl: './play-game.component.html',
   styleUrls: ['./play-game.component.scss'],
 })
-export class PlayGameComponent implements OnInit {
-  message = '';
+export class PlayGameComponent implements OnInit, OnDestroy {
+  private sub: Subscription = undefined as any;
+  public message = '';
   constructor(
     readonly isHandsetService: IsHandsetService,
     readonly playSessionSvc: PlaySessionService,
@@ -32,6 +32,9 @@ export class PlayGameComponent implements OnInit {
     if (!this.playSessionSvc.gameInProgress) {
       this.newGame();
     }
+    this.sub = this.playSessionSvc.gameDoneObservable().subscribe((player) => {
+      this.openDialog(player);
+    });
   }
 
   private initTiles() {
@@ -40,33 +43,27 @@ export class PlayGameComponent implements OnInit {
     }
   }
 
-  resetGame() {
+  public resetGame() {
     this.message = '';
     this.playSessionSvc.resetGame();
     this.initTiles();
   }
 
-  newGame() {
+  public newGame() {
     this.resetGame();
     this.playSessionSvc.gameInProgress = true;
-    this.playSessionSvc
-      .gameDoneObservable()
-      .pipe(take(1))
-      .subscribe((player) => {
-        this.openDialog(player);
-      });
   }
 
-  clickCell(tile: Tile) {
+  public clickCell(tile: Tile) {
     if (this.playSessionSvc.gameInProgress && tile.tileClass.length === 0) {
       this.setIcon(this.playSessionSvc.chance, tile);
       this.playSessionSvc.toggleTurn(tile.tileNum);
     }
   }
 
-  private setIcon(player: playerChance, tile: Tile) {
+  private setIcon(player: PlayerChance, tile: Tile) {
     const classArray = ['mdi'];
-    if (player === playerChance.ONE) {
+    if (player === PlayerChance.ONE) {
       classArray.push('mdi-close');
     } else {
       classArray.push('mdi-checkbox-blank-circle-outline');
@@ -74,16 +71,27 @@ export class PlayGameComponent implements OnInit {
     tile.tileClass = classArray;
   }
 
-  private openDialog(player: gameResults) {
+  private openDialog(player: GameResults) {
+    const playerName =
+      player === GameResults.ONE
+        ? this.playSessionSvc.player1Name
+        : player === GameResults.TWO
+        ? this.playSessionSvc.player2Name
+        : GameResults.TIED;
+
     const dialogRef = this.dialog.open(GameOverDialogComponent, {
-      data: { result: player },
+      data: { result: playerName },
       disableClose: true,
       hasBackdrop: true,
       backdropClass: 'transparent-backdrop',
     });
 
     dialogRef.afterClosed().subscribe(() => {
-      this.resetGame();
+      this.newGame();
     });
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 }

@@ -9,15 +9,15 @@
   >
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item routerLink="/home" routerLinkActive="active" title="Home">
+      <a mat-list-item routerLink="/home" routerLinkActive="active" title="Home" (click)="close()">
         <span class="mdi mdi-home pad-right-10"></span>
         Home
       </a>
-      <a mat-list-item routerLink="/play" routerLinkActive="active" title="Play">
+      <a mat-list-item routerLink="/play" routerLinkActive="active" title="Play" (click)="close()">
         <span class="mdi mdi-play pad-right-10"></span>
         Play
       </a>
-      <a mat-list-item routerLink="/about" routerLinkActive="active" title="About">
+      <a mat-list-item routerLink="/about" routerLinkActive="active" title="About" (click)="close()">
         <span class="mdi mdi-account-tie pad-right-10"></span>
         About
       </a>
@@ -34,7 +34,7 @@
       >
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <h1>TIC-TAC-TOE</h1>
+      <h1 class="pad-left-10">TIC-TAC-TOE</h1>
     </mat-toolbar>
 
     <!-- content goes here -->
