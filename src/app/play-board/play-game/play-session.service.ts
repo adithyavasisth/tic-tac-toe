@@ -1,37 +1,24 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-
-export interface Player {
-  tiles: number[];
-}
-
-export interface Tile {
-  color: string;
-  tileNum: number;
-  tileClass: string[];
-}
+import {
+  GameResults,
+  Player,
+  PlayerChance,
+  Tile,
+  WinPatterns,
+} from '../models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PlaySessionService {
   private _gameInProgress: boolean = false;
-  private _chance: 1 | 2 = 1;
+  private _chance: PlayerChance = PlayerChance.ONE;
   private _player1: Player = { tiles: [] };
   private _player2: Player = { tiles: [] };
   private _tiles: Tile[] = [];
   private boxes: number[] = [];
-  private $gameDone: Subject<1 | 2 | 'tied'> = new Subject();
-  private winPatterns = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [3, 4, 6],
-  ];
+  private $gameDone: Subject<GameResults> = new Subject();
 
   get player1(): Player {
     return this._player1;
@@ -41,7 +28,23 @@ export class PlaySessionService {
     return this._player2;
   }
 
-  get chance(): 1 | 2 {
+  get player1Name(): string {
+    return this._player1.name ?? 'John';
+  }
+
+  set player1Name(name: string) {
+    this._player1.name = name;
+  }
+
+  get player2Name(): string {
+    return this._player2.name ?? 'Jane';
+  }
+
+  set player2Name(name: string) {
+    this._player2.name = name;
+  }
+
+  get chance(): PlayerChance {
     return this._chance;
   }
 
@@ -61,33 +64,38 @@ export class PlaySessionService {
     this._tiles = v;
   }
 
-  public gameDoneObservable(): Observable<1 | 2 | 'tied'> {
+  public gameDoneObservable(): Observable<GameResults> {
     return this.$gameDone.asObservable();
   }
 
   resetGame() {
-    this._chance = 1;
+    this._chance = PlayerChance.ONE;
     this._gameInProgress = false;
     this._tiles = [];
-    this._player1 = { tiles: [] };
-    this._player2 = { tiles: [] };
+    this._player1.tiles = [];
+    this._player2.tiles = [];
     this.boxes = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+    this.togglePlayer();
   }
 
   constructor() {}
 
+  togglePlayer() {
+    [this.player1Name, this.player2Name] = [this.player2Name, this.player1Name];
+  }
+
   toggleTurn(tileNum: number) {
     this._gameInProgress = true;
     switch (this._chance) {
-      case 1:
+      case PlayerChance.ONE:
         this._player1.tiles.push(tileNum);
         this.checkBoard(tileNum);
-        this._chance = 2;
+        this._chance = PlayerChance.TWO;
         break;
-      case 2:
+      case PlayerChance.TWO:
         this._player2.tiles.push(tileNum);
         this.checkBoard(tileNum);
-        this._chance = 1;
+        this._chance = PlayerChance.ONE;
         break;
     }
   }
@@ -96,7 +104,7 @@ export class PlaySessionService {
     let currentPlayerArray: number[] = [];
     this.boxes = this.boxes.filter((box) => box !== tileNum);
 
-    if (this._chance === 1) {
+    if (this._chance === PlayerChance.ONE) {
       this._player1.tiles.sort();
       currentPlayerArray = this._player1.tiles;
     } else {
@@ -104,7 +112,7 @@ export class PlaySessionService {
       currentPlayerArray = this._player2.tiles;
     }
 
-    const checkState = this.winPatterns.some((pattern) => {
+    const checkState = WinPatterns.some((pattern) => {
       let retVal = true;
       pattern.forEach((num) => {
         if (!currentPlayerArray.includes(num)) {
@@ -115,12 +123,18 @@ export class PlaySessionService {
     });
 
     if (checkState) {
-      this.$gameDone.next(this._chance as any);
+      this.$gameDone.next(
+        this._chance === PlayerChance.ONE
+          ? (PlayerChance.ONE as any)
+          : (PlayerChance.TWO as any)
+      );
+
+      return;
     }
 
     // tied
     if (this.boxes.length === 0) {
-      this.$gameDone.next('tied');
+      this.$gameDone.next(GameResults.TIED);
     }
   }
 }
