@@ -31,6 +31,8 @@ export class HomePageComponent implements OnInit {
       this.profileForm.get('player1Name')?.value;
     this.playSessionSvc.player2Name =
       this.profileForm.get('player2Name')?.value;
+    this.playSessionSvc.player1TimesWon = 0;
+    this.playSessionSvc.player2TimesWon = 0;
     this.playSessionSvc.resetGame();
   }
 }

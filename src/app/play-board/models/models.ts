@@ -1,5 +1,6 @@
 export interface Player {
-  name?: string;
+  name: string;
+  timesWon?: number;
   tiles: number[];
 }
 
