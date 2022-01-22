@@ -1,7 +1,19 @@
 <div class="button-row" [ngClass]="{ handset: (isHandset$ | async) }">
   <div class="deets">
     <span class="mat-h1 pad-right-10">
-      It is
+      <span [ngClass]="playSessionSvc.chance === 1 ? 'active' : ''">
+        {{playSessionSvc.player1Name}}: {{playSessionSvc.player1TimesWon}} (<i
+          class="mdi mdi-close"
+        ></i
+        >)
+      </span>
+      <span [ngClass]="playSessionSvc.chance === 2 ? 'active' : ''">
+        {{playSessionSvc.player2Name}}: {{playSessionSvc.player2TimesWon}} (<i
+          class="mdi mdi-checkbox-blank-circle-outline"
+        ></i
+        >)
+      </span>
+      <!-- It is
       {{
         playSessionSvc.chance === 1
           ? playSessionSvc.player1Name
@@ -14,7 +26,7 @@
             ? 'mdi-close'
             : 'mdi-checkbox-blank-circle-outline'
         "
-      ></i>) chance
+      ></i>) chance -->
     </span>
   </div>
   <!-- for desktops -->

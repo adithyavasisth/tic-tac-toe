@@ -16,7 +16,6 @@ import { PlaySessionService } from './play-session.service';
 })
 export class PlayGameComponent implements OnInit, OnDestroy {
   private sub: Subscription;
-  public message = '';
   constructor(
     readonly isHandsetService: IsHandsetService,
     readonly playSessionSvc: PlaySessionService,
@@ -64,7 +63,6 @@ export class PlayGameComponent implements OnInit, OnDestroy {
    * @description Resets the game, message and tiles
    */
   public resetGame() {
-    this.message = '';
     this.playSessionSvc.resetGame();
     this.initTiles();
   }

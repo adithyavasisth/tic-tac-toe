@@ -17,8 +17,8 @@ import {
 export class PlaySessionService {
   private _gameInProgress: boolean = false;
   private _chance: PlayerChance = PlayerChance.ONE;
-  private _player1: Player = { tiles: [] };
-  private _player2: Player = { tiles: [] };
+  private _player1: Player = { name: '', tiles: [], timesWon: 0 };
+  private _player2: Player = { name: '', tiles: [], timesWon: 0 };
   private _tiles: Tile[] = [];
   private boxes: number[] = [];
   private $gameResult: Subject<GameResults> = new Subject();
@@ -43,28 +43,56 @@ export class PlaySessionService {
    * @description Returns Player 1 Name
    */
   get player1Name(): string {
-    return this._player1.name ?? 'John';
+    return this.player1.name;
   }
 
   /**
    * @description Sets Player 1 Name
    */
   set player1Name(name: string) {
-    this._player1.name = name;
+    this.player1.name = name;
   }
 
   /**
    * @description Returns Player 2 Name
    */
   get player2Name(): string {
-    return this._player2.name ?? 'Jane';
+    return this.player2.name;
   }
 
   /**
    * @description Sets Player 2 Name
    */
   set player2Name(name: string) {
-    this._player2.name = name;
+    this.player2.name = name;
+  }
+
+  /**
+   * @description Returns number of times Player 1 has won
+   */
+  public get player1TimesWon(): number {
+    return this.player1.timesWon ?? 0;
+  }
+
+  /**
+   * @description Sets the number of times Player 1 has won
+   */
+  public set player1TimesWon(value: number) {
+    this.player1.timesWon = value;
+  }
+
+  /**
+   * @description Returns number of times Player 2 has won
+   */
+  public get player2TimesWon(): number {
+    return this.player2.timesWon ?? 0;
+  }
+
+  /**
+   * @description Sets the number of times Player 2 has won
+   */
+  public set player2TimesWon(value: number) {
+    this.player2.timesWon = value;
   }
 
   /**
@@ -123,10 +151,9 @@ export class PlaySessionService {
   resetGame() {
     this._gameInProgress = false;
     this._tiles = [];
-    this._player1.tiles = [];
-    this._player2.tiles = [];
+    this.player1.tiles = [];
+    this.player2.tiles = [];
     this.boxes = [0, 1, 2, 3, 4, 5, 6, 7, 8];
-    this.togglePlayer();
   }
 
   constructor() {}
@@ -152,11 +179,11 @@ export class PlaySessionService {
     this._gameInProgress = true;
     switch (this._chance) {
       case PlayerChance.ONE:
-        this._player1.tiles.push(tileNum);
+        this.player1.tiles.push(tileNum);
         this.checkBoard(tileNum);
         break;
       case PlayerChance.TWO:
-        this._player2.tiles.push(tileNum);
+        this.player2.tiles.push(tileNum);
         this.checkBoard(tileNum);
         break;
     }
@@ -171,11 +198,11 @@ export class PlaySessionService {
     this.boxes = this.boxes.filter((box) => box !== tileNum);
 
     if (this._chance === PlayerChance.ONE) {
-      this._player1.tiles.sort();
-      currentPlayerArray = this._player1.tiles;
+      this.player1.tiles.sort();
+      currentPlayerArray = this.player1.tiles;
     } else {
-      this._player2.tiles.sort();
-      currentPlayerArray = this._player2.tiles;
+      this.player2.tiles.sort();
+      currentPlayerArray = this.player2.tiles;
     }
 
     const checkState = WinPatterns.some((pattern) => {
@@ -190,18 +217,20 @@ export class PlaySessionService {
 
     // win
     if (checkState) {
-      this.$gameResult.next(
-        this._chance === PlayerChance.ONE
-          ? (PlayerChance.ONE as any)
-          : (PlayerChance.TWO as any)
-      );
-
+      if (this._chance === PlayerChance.ONE) {
+        this.player1TimesWon += 1;
+        this.$gameResult.next(GameResults.ONE);
+      } else {
+        this.player2TimesWon += 1;
+        this.$gameResult.next(GameResults.TWO);
+      }
       return;
     }
 
     // tied
     if (this.boxes.length === 0) {
       this.$gameResult.next(GameResults.TIED);
+      return;
     }
 
     this.togglePlayer();
